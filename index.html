@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interligens — Anti-Scam Intelligence</title>
+  <meta name="description" content="Reduce crypto scam risk. Scan an address, get a clear verdict." />
+
+  <style>
+    :root{
+      --bg:#0B0D10; --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.68);
+      --panel:rgba(255,255,255,.06); --line:rgba(255,255,255,.12);
+      --accent:#F85B05; --shadow:0 20px 60px rgba(0,0,0,.55);
+      --max:1080px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font); color:var(--text); background:
+        radial-gradient(1100px 520px at 20% 10%, rgba(248,91,5,0.20), transparent 55%),
+        radial-gradient(900px 520px at 80% 20%, rgba(255,255,255,0.10), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(11,13,16,0.75), rgba(11,13,16,0.35));
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:850; letter-spacing:.2px}
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,0.25), transparent 55%),
+        radial-gradient(18px 18px at 70% 70%, rgba(248,91,5,0.45), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border:1px solid rgba(255,255,255,0.14);
+      box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    }
+    .pill{
+      font-size:12.5px; color:var(--muted); padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06)
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius:14px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.06); color:var(--text);
+      font-weight:750; font-size:14px; cursor:pointer;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,0.09); border-color:rgba(255,255,255,0.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(248,91,5,0.95), rgba(248,91,5,0.65));
+      border-color: rgba(248,91,5,0.65);
+      color:#0B0D10;
+    }
+
+    main{padding:56px 0 44px}
+    .hero{
+      border:1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border-radius:26px; box-shadow:var(--shadow); overflow:hidden;
+    }
+    .hero-inner{padding:26px; display:grid; gap:18px}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px; width:fit-content;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06);
+      color:var(--muted); font-size:13px
+    }
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(248,91,5,0.12)}
+    h1{margin:0; font-size:clamp(34px, 4.2vw, 54px); line-height:1.03; letter-spacing:-.7px}
+    .lead{margin:0; color:var(--muted); font-size:16px; line-height:1.65; max-width:60ch}
+
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;
+    }
+    .input{
+      display:flex; gap:10px; align-items:center;
+      padding:12px 12px; border-radius:14px;
+      border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06);
+      flex:1; min-width:240px;
+    }
+    .input input{
+      flex:1; outline:none; border:none; background:transparent; color:var(--text); font-size:14px;
+    }
+
+    .grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:stretch;}
+    .card{
+      padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.05);
+    }
+    .card h3{margin:0 0 6px; font-size:14px}
+    .card p{margin:0; color:var(--muted); line-height:1.55; font-size:13.5px}
+
+    .fine{color: rgba(255,255,255,0.55); font-size:12.5px; line-height:1.45; margin-top:8px}
+    footer{padding:22px 0 34px; border-top:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.62); font-size:13px}
+    .foot{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    @media (max-width: 860px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>INTERLIGENS</div>
+        <span class="pill">Anti-Scam Intelligence</span>
+      </div>
+      <a class="btn primary" href="#waitlist">Early access</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="badge"><span class="dot"></span><span>Reduce crypto scam risk.</span></div>
+
+          <h1>Scan an address. Get a clear verdict.</h1>
+          <p class="lead">
+            INTERLIGENS helps retail investors spot risk signals before interacting with a wallet, token, or project link.
+            Fast, simple, and transparency-focused.
+          </p>
+
+          <div id="waitlist" class="cta">
+            <div class="input">
+              <input id="email" placeholder="you@domain.com" />
+            </div>
+            <button class="btn primary" id="join">Join the waitlist</button>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Readable verdict</h3>
+              <p>A result you can understand in one second — no unnecessary jargon.</p>
+            </div>
+            <div class="card">
+              <h3>Essential reasons</h3>
+              <p>A short list of key signals so you understand the “why”, without exposing internal details.</p>
+            </div>
+            <div class="card">
+              <h3>Useful alerts</h3>
+              <p>Notifications only when risk meaningfully increases — no spam.</p>
+            </div>
+            <div class="card">
+              <h3>Privacy-first</h3>
+              <p>Data minimization by design. The goal is protection, not profiling.</p>
+            </div>
+          </div>
+
+          <div class="fine" id="toast" style="display:none;">✅ Got it — we’ll reach out when early access opens.</div>
+          <div class="fine">
+            No financial advice. Product in development. Features and availability may change.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>© <span id="year"></span> INTERLIGENS</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="#" onclick="alert('Hook this to: contact@...'); return false;">Contact</a>
+        <a href="#" onclick="alert('Hook this to: Privacy Policy'); return false;">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('join').addEventListener('click', () => {
+      const email = (document.getElementById('email').value || '').trim();
+      if(!email || !email.includes('@')) { alert('Please enter a valid email 🙂'); return; }
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(()=> toast.style.display='none', 3500);
+    });
+  </script>
+</body>
+</html>
