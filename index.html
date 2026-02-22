@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Interligens — Anti-Scam Intelligence</title>
+  <title>INTERLIGENS — Anti-Scam Intelligence</title>
   <meta name="description" content="Reduce crypto scam risk. Scan an address, get a clear verdict." />
+
+  <!-- Favicon (make sure this file exists next to this HTML) -->
+  <link rel="icon" href="interligens-logo-v1-icon-1024-dark.png">
 
   <style>
     :root{
@@ -32,15 +35,14 @@
     }
     .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px}
     .brand{display:flex; align-items:center; gap:12px; font-weight:850; letter-spacing:.2px}
-    .logo{
-      width:34px; height:34px; border-radius:12px;
-      background:
-        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,0.25), transparent 55%),
-        radial-gradient(18px 18px at 70% 70%, rgba(248,91,5,0.45), transparent 55%),
-        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
-      border:1px solid rgba(255,255,255,0.14);
-      box-shadow:0 10px 30px rgba(0,0,0,0.35);
+
+    /* Replaces the placeholder square with your real logo image */
+    .brand img{
+      height:28px;
+      width:auto;
+      display:block;
     }
+
     .pill{
       font-size:12.5px; color:var(--muted); padding:7px 10px; border-radius:999px;
       border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06)
@@ -77,24 +79,17 @@
     h1{margin:0; font-size:clamp(34px, 4.2vw, 54px); line-height:1.03; letter-spacing:-.7px}
     .lead{margin:0; color:var(--muted); font-size:16px; line-height:1.65; max-width:60ch}
 
-    .cta{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;
-    }
+    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;}
     .input{
       display:flex; gap:10px; align-items:center;
       padding:12px 12px; border-radius:14px;
       border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06);
       flex:1; min-width:240px;
     }
-    .input input{
-      flex:1; outline:none; border:none; background:transparent; color:var(--text); font-size:14px;
-    }
+    .input input{flex:1; outline:none; border:none; background:transparent; color:var(--text); font-size:14px;}
 
     .grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:stretch;}
-    .card{
-      padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.05);
-    }
+    .card{padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05);}
     .card h3{margin:0 0 6px; font-size:14px}
     .card p{margin:0; color:var(--muted); line-height:1.55; font-size:13.5px}
 
@@ -109,8 +104,8 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>INTERLIGENS</div>
+        <!-- Logo file MUST be in the same folder as this HTML -->
+        <img src="interligens-logo-v1-lockup-horizontal-light.png" alt="INTERLIGENS">
         <span class="pill">Anti-Scam Intelligence</span>
       </div>
       <a class="btn primary" href="#waitlist">Early access</a>
