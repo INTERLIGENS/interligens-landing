@@ -31,7 +31,6 @@
       border-bottom:1px solid rgba(255,255,255,0.08);
     }
     .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px}
-
     .brand{
       display:flex; align-items:center; gap:12px;
       font-weight:900; letter-spacing:0.8px;
@@ -90,6 +89,18 @@
     footer{padding:22px 0 34px; border-top:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.62); font-size:13px}
     .foot{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap}
     @media (max-width: 860px){ .grid{grid-template-columns:1fr} }
+
+    .status{
+      display:none;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.06);
+      color:rgba(255,255,255,0.85);
+      font-size:13px;
+    }
+    .status.ok{border-color: rgba(34,197,94,0.35);}
+    .status.err{border-color: rgba(239,68,68,0.35);}
   </style>
 </head>
 
@@ -113,12 +124,14 @@
             Fast, simple, and transparency-focused.
           </p>
 
-          <div id="waitlist" class="cta">
+          <form id="waitlist" class="cta" autocomplete="on">
             <div class="input">
-              <input id="email" placeholder="you@domain.com" />
+              <input id="email" name="email" type="email" placeholder="you@domain.com" required />
             </div>
-            <button class="btn primary" id="join">Join the waitlist</button>
-          </div>
+            <button class="btn primary" id="join" type="submit">Join the waitlist</button>
+          </form>
+
+          <div class="status" id="status"></div>
 
           <div class="grid">
             <div class="card">
@@ -139,7 +152,6 @@
             </div>
           </div>
 
-          <div class="fine" id="toast" style="display:none;">✅ Got it — we’ll reach out when early access opens.</div>
           <div class="fine">
             No financial advice. Product in development. Features and availability may change.
           </div>
@@ -159,13 +171,45 @@
   </footer>
 
   <script>
+    const FORM_ENDPOINT = "https://formspree.io/f/mqedgqaw";
+
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('join').addEventListener('click', () => {
+
+    const form = document.getElementById('waitlist');
+    const statusEl = document.getElementById('status');
+
+    function showStatus(type, msg){
+      statusEl.className = "status " + type;
+      statusEl.textContent = msg;
+      statusEl.style.display = "block";
+      setTimeout(()=>{ statusEl.style.display = "none"; }, 4500);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
       const email = (document.getElementById('email').value || '').trim();
-      if(!email || !email.includes('@')) { alert('Please enter a valid email 🙂'); return; }
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-      setTimeout(()=> toast.style.display='none', 3500);
+      if(!email || !email.includes('@')) {
+        showStatus("err", "Please enter a valid email 🙂");
+        return;
+      }
+
+      try{
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        if(res.ok){
+          form.reset();
+          showStatus("ok", "✅ Got it — we’ll reach out when early access opens.");
+        } else {
+          showStatus("err", "Oops — please try again in a moment.");
+        }
+      } catch(err){
+        showStatus("err", "Network error — please try again.");
+      }
     });
   </script>
 </body>
